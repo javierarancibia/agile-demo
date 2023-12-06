@@ -1,0 +1,28 @@
+version: "3.8"
+
+services: 
+  frontend-demo:
+    build: ./frontend
+    ports:
+      - 80:5173
+    volumes:
+      - ./frontend/src:/app/src
+  
+  backend-demo:
+    build: ./backend
+    ports: 
+      - 3000:3000
+    environment:
+      DB_URL: mongodb://db/demo
+    volumes:
+      - ./backend/app:/app/app
+  
+  db:
+    image: mongo:5.0.19-focal
+    ports: 
+      - 27017:27017
+    volumes: 
+      - demo:/data/db 
+
+volumes: 
+  demo:
